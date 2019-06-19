@@ -1,7 +1,7 @@
 {
-  "name": "webapp-boilerplate",
-  "version": "1.0.0",
-  "description": "A front-end web app to start a new project from scratch.",
+  "name": "meeting-reaction-web",
+  "version": "2.0.1",
+  "description": "An application for viewing instant feedback captured during a meeting.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
@@ -12,10 +12,18 @@
     "webpack",
     "babel",
     "react",
-    "bootstrap"
+    "bootstrap",
+    "highcharts",
+    "word cloud",
+    "speech to text",
+    "facial recognition"
   ],
-  "author": "Eduardo Basso <eduardo.basso@br.ey.com> (https://eduardobasso.github.io/)",
-  "contributors": [],
+  "author": "Eduardo Basso <eduardo.basso@br.ey.com>",
+  "contributors": ["Michel Fernandes <michel.fernandes@br.ey.com>"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeyondLabsEY/meeting-reaction-web.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.3",
