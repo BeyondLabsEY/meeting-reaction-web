@@ -1,32 +1,29 @@
 {
   "name": "meeting-reaction-web",
   "version": "2.0.1",
-  "description": "An application for viewing instant feedback captured during a meeting.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production --progress"
-  },
+  "description": "Meeting Reaction is an application for viewing instant feedback captured during a meeting.",
   "keywords": [
-    "npm",
-    "webpack",
-    "babel",
-    "react",
-    "bootstrap",
-    "highcharts",
+    "meeting",
+    "reactions",
+    "expressions",
     "word cloud",
     "speech to text",
     "facial recognition"
   ],
+  "license": "ISC",
   "author": "Eduardo Basso <eduardo.basso@br.ey.com>",
   "contributors": [
     "Michel Fernandes <michel.fernandes@br.ey.com>"
   ],
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/BeyondLabsEY/meeting-reaction-web.git"
   },
-  "license": "ISC",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production --progress"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
