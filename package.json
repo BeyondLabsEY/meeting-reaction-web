@@ -19,7 +19,9 @@
     "facial recognition"
   ],
   "author": "Eduardo Basso <eduardo.basso@br.ey.com>",
-  "contributors": ["Michel Fernandes <michel.fernandes@br.ey.com>"],
+  "contributors": [
+    "Michel Fernandes <michel.fernandes@br.ey.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/BeyondLabsEY/meeting-reaction-web.git"
