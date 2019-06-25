@@ -1,18 +1,18 @@
 import React, { Component } from "react";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./Main.scss";
+import Home from "../Home/Home.jsx";
 
-class Header extends Component {
+class Main extends Component {
   render() {
     return (
-      <main>
-        <h3 className="sr-only">Main content</h3>
-        <div className="description">
-          <p>To get started, edit any file you want and save it to reaload this page.</p>
-        </div>
-      </main>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </Router>
     );
   }
 }
 
-export default Header;
+export default Main;

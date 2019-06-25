@@ -1,0 +1,13 @@
+@import "../../assets/scss/abstracts/variables";
+
+footer {
+  font-size: .75em;
+  font-weight: $regular-font;
+  text-align: center;
+  p {
+    margin: 0;
+  }
+  .logo {
+    max-height: 36px;
+  }
+}

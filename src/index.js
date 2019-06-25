@@ -1,12 +1,13 @@
 import React from "react";
 import { render } from "react-dom";
-import 'bootstrap';
+import "bootstrap";
 
 import "./assets/favicon/favicon";
-import './assets/scss/custom.scss';
-import './assets/scss/base.scss';
+import "./assets/scss/ey-font.scss";
+import "./assets/scss/custom.scss";
+import "./assets/scss/base.scss";
 
-import Wrapper from "./components/Wrapper/Wrapper.jsx";
+import Main from "./components/Main/Main.jsx";
 
 const rootElement = document.getElementById("root");
-rootElement ? render(<Wrapper />, rootElement) : false;
+rootElement ? render(<Main />, rootElement) : false;

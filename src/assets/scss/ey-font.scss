@@ -1,6 +1,6 @@
-$ey-font-path: "../../fonts/ey-interstate/" !default;
+@import "./abstracts/variables";
 
-@import "./variables";
+$ey-font-path: "../fonts/ey-interstate/" !default;
 
 @font-face {
   font-family: "EYInterstate";

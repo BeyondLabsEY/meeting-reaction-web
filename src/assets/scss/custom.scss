@@ -2,7 +2,8 @@
 @import "./abstracts/ey-colors";
 @import "./abstracts/variables";
 
-// Bootstrap
+// Bootstrap variables
+
 $gray-100: $ey-gray-tint3;
 $gray-400: $ey-gray-tint2;
 $gray-500: $ey-gray-tint1;
@@ -19,8 +20,12 @@ $yellow: $ey-yellow;
 $green: $ey-green;
 $cyan: $ey-blue;
 
-$body-bg: $gray-100;
-$body-color: $gray-900;
+$body-bg: $gray-900;
+$body-color: $white;
+
+$border-radius: $default-border-radius;
+$border-radius-lg: $border-radius;
+$border-radius-sm: $border-radius;
 
 $font-family-base: $ey-interstate;
 
@@ -28,9 +33,18 @@ $font-weight-light: $light-font;
 $font-weight-normal: $regular-font;
 $font-weight-bold: $bold-font;
 
+$font-weight-base: $font-weight-normal;
+
 $headings-font-family: $font-family-base;
-$headings-font-weight: $font-weight-bold;
+$headings-font-weight: $font-weight-base;
+
+$input-btn-padding-y: 1rem;
+$input-btn-padding-x: 2rem;
+
+$input-btn-padding-y-sm: .75rem;
+$input-btn-padding-x-sm: 1.5rem;
+
+$input-btn-padding-y-lg: 1.25rem;
+$input-btn-padding-x-lg: 2.5rem;
 
 @import "~bootstrap/scss/bootstrap";
-
-// Custom styles
