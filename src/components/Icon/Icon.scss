@@ -1,0 +1,75 @@
+$icons-font-path: "../../assets/fonts/custom-icons/" !default;
+
+@font-face {
+  font-family: "Custom Icons";
+  src:  url($icons-font-path + "CustomIcons.eot");
+  src:  url($icons-font-path + "CustomIcons.eot?#iefix") format("embedded-opentype"),
+    url($icons-font-path + "CustomIcons.woff") format("woff"),
+    url($icons-font-path + "CustomIcons.ttf") format("truetype"),
+    url($icons-font-path + "CustomIcons.svg#CustomIcons") format("svg");
+  font-style: normal;
+  font-weight: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  font-family: "Custom Icons" !important;
+  font-size: 1.3em;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-decoration: none;
+  line-height: inherit;
+  vertical-align: sub;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.size-18 {
+    font-size: 18px !important;
+  }
+  &.size-24 {
+    font-size: 24px !important;
+  }
+  &.size-36 {
+    font-size: 36px !important;
+  }
+  &.size-48 {
+    font-size: 48px !important;
+  }
+  &.size-56 {
+    font-size: 56px !important;
+  }
+  &.size-64 {
+    font-size: 64px !important;
+  }
+  &.size-72 {
+    font-size: 72px !important;
+  }
+  &.size-96 {
+    font-size: 96px !important;
+  }
+}
+
+.icon-reaction {
+  &:before {
+    content: "\e900";
+  }
+}
+
+.icon-word-cloud {
+  &:before {
+    content: "\e901";
+  }
+}
+
+.icon-forward {
+  &:before {
+    content: "\e902";
+  }
+}
+
+.icon-backward {
+  &:before {
+    content: "\e903";
+  }
+}

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
-import PageWrapper from "../PageWrapper/PageWrapper.jsx";
 import Logo from "../../assets/img/logo.png";
+
+import PageWrapper from "../PageWrapper/PageWrapper.jsx";
+import Icon from "../Icon/Icon.jsx";
 
 const MEETING_CODE_LENGTH = 6;
 
@@ -60,8 +62,9 @@ class Home extends Component {
                     <Form.Control as="input" type="text" size="lg" className="text-center" value={meetingCode} onChange={this.changeMeetingCode} placeholder="Meeting code" autoFocus autoComplete="off" maxLength="6" required aria-required="true" aria-label="Code" id="inputMeetingCode" />
                     <Form.Text className="text-light text-right">e.g. 6IVACO</Form.Text>
                   </Form.Group>
-                  <Button type="submit" variant="warning" size="lg" block disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
+                  <Button type="submit" variant="warning" block className="px-0 has-icon" disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
                     <span>View reaction</span>
+                    <Icon name="forward" className="ml-2 mr-1" />
                   </Button>
                 </Form>
               </div>

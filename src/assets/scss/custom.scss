@@ -47,4 +47,31 @@ $input-btn-padding-x-sm: 1.5rem;
 $input-btn-padding-y-lg: 1.25rem;
 $input-btn-padding-x-lg: 2.5rem;
 
+$btn-icon-padding-y: .778rem;
+$btn-icon-padding-y-sm: .556rem;
+$btn-icon-padding-y-lg: .973rem;
+
 @import "~bootstrap/scss/bootstrap";
+
+// Bootstrap custom styles
+
+.btn {
+  &.has-icon {
+    padding-top: $btn-icon-padding-y;
+    padding-bottom: $btn-icon-padding-y;
+  }
+}
+
+.btn-sm {
+  &.has-icon {
+    padding-top: $btn-icon-padding-y-sm;
+    padding-bottom: $btn-icon-padding-y-sm;
+  }
+}
+
+.btn-lg {
+  &.has-icon {
+    padding-top: $btn-icon-padding-y-lg;
+    padding-bottom: $btn-icon-padding-y-lg;
+  }
+}
