@@ -1,0 +1,61 @@
+@import "../../assets/scss/abstracts/ey-colors";
+@import "../../assets/scss/abstracts/variables";
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.tabs-justified .tab {
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+}
+.tab-button {
+  display: block;
+  width: 100%;
+  border: 1px solid transparent;
+  border-top-left-radius: $default-border-radius;
+  border-top-right-radius: $default-border-radius;
+  background-color: transparent;
+  padding: .75rem;
+  line-height: 1.5;
+  color: transparentize($white, 0.7);
+  font-size: .875em;
+  text-transform: uppercase;
+  transition: background-color $default-transition, color $default-transition;
+  &:hover {
+    color: transparentize($white, 0.4);
+  }
+  &.active {
+    background-color: transparentize($ey-yellow, 0.9);
+    color: lighten($ey-yellow, 10%);
+    pointer-events: none;
+  }
+}
+
+.tab-title {
+  margin-right: .375rem;
+  margin-left: .75rem;
+}
+
+@media (max-width: 411px) {
+  .tab-title {
+    display: none;
+  }
+}
+
+.tab-content {
+  width: 550px;
+  height: 400px;
+  .content-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}

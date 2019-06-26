@@ -1,3 +1,4 @@
+@import "./abstracts/ey-colors";
 @import "./abstracts/variables";
 
 html {
@@ -8,10 +9,23 @@ body {
   font-size: 1em;
 }
 
-small {
-  font-weight: $light-font;
-}
-
 strong {
   font-weight: $bold-font;
+}
+
+small {
+  font-weight: $light-font;
+  strong {
+    font-weight: $regular-font;
+  }
+}
+
+hr {
+  border: 1px $ey-yellow solid;
+  margin: -1px 0;
+}
+
+*:focus {
+  outline: $ey-yellow-50 auto 4px !important;
+  outline-offset: 2px;
 }

@@ -36,7 +36,7 @@ class Home extends Component {
     const { meetingCode, valid } = this.state;
 
     if (valid) {
-      console.log("Meeting code:", meetingCode);
+      this.props.history.push(`/code/${meetingCode}`);
     }
   }
 

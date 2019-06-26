@@ -23,6 +23,9 @@ $cyan: $ey-blue;
 $body-bg: $gray-900;
 $body-color: $white;
 
+$link-color: $body-color;
+$link-hover-color: $link-color;
+
 $border-radius: $default-border-radius;
 $border-radius-lg: $border-radius;
 $border-radius-sm: $border-radius;
@@ -73,5 +76,12 @@ $btn-icon-padding-y-lg: .973rem;
   &.has-icon {
     padding-top: $btn-icon-padding-y-lg;
     padding-bottom: $btn-icon-padding-y-lg;
+  }
+}
+
+.btn-link {
+  font-weight: $btn-font-weight;
+  &.btn-sm {
+    font-weight: $font-weight-light;
   }
 }
