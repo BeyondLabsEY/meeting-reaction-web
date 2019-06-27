@@ -1,4 +1,3 @@
-@import "./abstracts/ey-colors";
 @import "./abstracts/variables";
 
 html {
@@ -18,14 +17,4 @@ small {
   strong {
     font-weight: $regular-font;
   }
-}
-
-hr {
-  border: 1px $ey-yellow solid;
-  margin: -1px 0;
-}
-
-*:focus {
-  outline: $ey-yellow-50 auto 4px !important;
-  outline-offset: 2px;
 }

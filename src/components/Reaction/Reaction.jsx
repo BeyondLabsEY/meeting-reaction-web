@@ -8,6 +8,8 @@ import Icon from "../Icon/Icon.jsx";
 class Reaction extends Component {
   constructor(props) {
     super(props);
+
+    console.log(props.match.params.meetingCode);
     
     this.leaveMeeting = this.leaveMeeting.bind(this);
   }
@@ -16,13 +18,21 @@ class Reaction extends Component {
     this.props.history.push("/");
   }
 
+  componentDidMount() {
+    if (! this.props.match.params.meetingCode) {
+      this.leaveMeeting();
+    }
+  }
+
   render() {
+    const { meetingCode } = this.props.match.params;
+
     return (
       <PageWrapper>
         <Container>
           <Row>
             <Col>
-              <p className="my-0 text-center">The code for this meeting is <strong>6IVACO</strong></p>
+              <p className="my-0 text-center">The code for this meeting is <strong>{meetingCode}</strong></p>
             </Col>
           </Row>
           <Row className="justify-content-center">
@@ -37,7 +47,7 @@ class Reaction extends Component {
           </Row>
           <Row>
             <Col>
-              <ReactionTabs />
+              <ReactionTabs code={meetingCode} />
             </Col>
           </Row>
         </Container>
