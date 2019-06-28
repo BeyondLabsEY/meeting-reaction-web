@@ -8,8 +8,6 @@ import Icon from "../Icon/Icon.jsx";
 class Reaction extends Component {
   constructor(props) {
     super(props);
-
-    console.log(props.match.params.meetingCode);
     
     this.leaveMeeting = this.leaveMeeting.bind(this);
   }
@@ -45,6 +43,8 @@ class Reaction extends Component {
               </div>
             </Col>
           </Row>
+        </Container>
+        <Container>
           <Row>
             <Col>
               <ReactionTabs code={meetingCode} />
