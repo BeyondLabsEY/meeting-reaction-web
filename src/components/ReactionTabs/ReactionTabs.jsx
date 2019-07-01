@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Tab } from "react-bootstrap";
+import { Nav, Tab, Container, Row, Col } from "react-bootstrap";
 import ReactLoading from "react-loading";
 import Axios from "axios";
 
@@ -10,22 +10,20 @@ import { wordCloudOptionsData } from "../../data/chartOptions";
 import WordCloudChart from "../WordCloudChart/WordCloudChart.jsx";
 import Icon from "../Icon/Icon.jsx";
 
+const REQUEST_INTERVAL_MINUTES = 5;
+const CHART_HEIGHT_RATIO = 72;
+
 class ReactionTabs extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      switch: true,
-      wordCloud: null,
-      fetching: true
+      wordCloud: null
     };
-    this.changeTab = this.changeTab.bind(this);
   }
 
-  changeTab() {
-    this.setState({
-      switch: ! this.state.switch
-    });
+  calcChartHeight() {
+    return parseInt(CHART_HEIGHT_RATIO / (window.innerWidth / window.innerHeight));
   }
 
   fetchWordCloudData() {
@@ -39,17 +37,15 @@ class ReactionTabs extends Component {
       let wordCloud = wordCloudOptionsData;
       const { status, words } = response.data;
       if (status) {
+        wordCloud.chart.height = `${parseInt(CHART_HEIGHT_RATIO / (window.innerWidth / window.innerHeight))}%`;
         wordCloud.series = [{
           data: words
         }];
 
         this.setState({
-          wordCloud,
-          fetching: false
+          wordCloud
         });
       }
-
-      console.log("Words:", this.state.words);
     });
   }
 
@@ -58,11 +54,16 @@ class ReactionTabs extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.fetchData()
+    this.inverval = setInterval(() => (this.fetchData()), REQUEST_INTERVAL_MINUTES * 60 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.inverval);
   }
 
   render() {
-    const { wordCloud, fetching } = this.state;
+    const { wordCloud } = this.state;
     const Loading = () => (
       <div className="content-loading">
         <ReactLoading
@@ -74,28 +75,40 @@ class ReactionTabs extends Component {
 
     return (
       <Tab.Container defaultActiveKey="word-cloud" id="reactionTabs">
-        <Nav as="ul" variant="pills" bsPrefix="tabs" justify>
-          <Nav.Item bsPrefix="tab">
-            <Nav.Link as="button" eventKey="word-cloud" role="tab" bsPrefix="tab-button" id="btnWordCloudTab">
-              <Icon name="word-cloud" size="24" />
-              <span className="tab-title">Word cloud</span>
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item bsPrefix="tab">
-            <Nav.Link as="button" eventKey="facial-analysis" role="tab" bsPrefix="tab-button" id="btnFacialAnalysisTab">
-              <Icon name="reaction" size="24" />
-              <span className="tab-title">Facial Analysis</span>
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
-        <Tab.Content>
-          <Tab.Pane eventKey="word-cloud" role="tabpanel">
-            {(fetching) ? <Loading /> : <WordCloudChart options={wordCloud} />}
-          </Tab.Pane>
-          <Tab.Pane eventKey="facial-analysis" role="tabpanel">
-            <p>Facial Analysis</p>
-          </Tab.Pane>
-        </Tab.Content>
+        <Container>
+          <Row>
+            <Col>
+              <Nav as="ul" variant="pills" bsPrefix="tabs" justify>
+                <Nav.Item bsPrefix="tab">
+                  <Nav.Link as="button" eventKey="word-cloud" role="tab" bsPrefix="tab-button" id="btnWordCloudTab">
+                    <Icon name="word-cloud" size="24" />
+                    <span className="tab-title">Word cloud</span>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item bsPrefix="tab">
+                  <Nav.Link as="button" eventKey="facial-analysis" role="tab" bsPrefix="tab-button" id="btnFacialAnalysisTab">
+                    <Icon name="reaction" size="24" />
+                    <span className="tab-title">Facial Analysis</span>
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+          </Row>
+        </Container>
+        <Container fluid>
+          <Row>
+            <Col>
+              <Tab.Content>
+                <Tab.Pane eventKey="word-cloud" role="tabpanel">
+                  {(wordCloud) ? <WordCloudChart options={wordCloud} /> : <Loading />}
+                </Tab.Pane>
+                <Tab.Pane eventKey="facial-analysis" role="tabpanel">
+                  <p>Facial Analysis</p>
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Container>
       </Tab.Container>
     );
   }

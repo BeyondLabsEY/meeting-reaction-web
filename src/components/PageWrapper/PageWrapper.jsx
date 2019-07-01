@@ -11,7 +11,7 @@ class PageWrapper extends Component {
         <div className="flex-grow-1 py-3">
           {this.props.children}
         </div>
-        <div className="flex-grow-0 py-3">
+        <div className="flex-grow-0 pb-3">
           <PageFooter />
         </div>
       </div>

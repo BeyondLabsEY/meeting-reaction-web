@@ -1,4 +1,4 @@
-const height = "60%";
+const height = "40%";
 const fontFamily = `"EYInterstate", Arial, sans-serif`;
 const backgroundColor = "transparent";
 const spacingBottom = 0;
@@ -48,7 +48,8 @@ export const wordCloudOptionsData = {
       },
       name: "Occurrences",
       style: {
-        fontFamily
+        fontFamily,
+        cursor: "default"
       }
     }
   },

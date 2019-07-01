@@ -44,13 +44,7 @@ class Reaction extends Component {
             </Col>
           </Row>
         </Container>
-        <Container>
-          <Row>
-            <Col>
-              <ReactionTabs code={meetingCode} />
-            </Col>
-          </Row>
-        </Container>
+        <ReactionTabs code={meetingCode} />
       </PageWrapper>
     );
   }
