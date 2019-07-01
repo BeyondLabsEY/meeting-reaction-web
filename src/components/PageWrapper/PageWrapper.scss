@@ -1,3 +1,58 @@
+@import "../../assets/scss/abstracts/variables";
+
+.page-enter {
+  opacity: 0;
+}
+.page-enter-active {
+  opacity: 1;
+  transition: opacity $default-transition;
+}
+.page-exit {
+  opacity: 1;
+}
+.page-exit-active {
+  opacity: 0;
+  transition: opacity $default-transition;
+}
+
+.page-from-left-enter {
+  position: relative;
+  top: 0;
+  left: -100%;
+}
+.page-from-left-enter-active {
+  left: 0;
+  transition: left $default-transition;
+}
+.page-from-left-exit {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.page-from-left-exit-active {
+  left: -100%;
+  transition: left $default-transition;
+}
+
+.page-from-right-enter {
+  position: relative;
+  top: 0;
+  left: 100%;
+}
+.page-from-right-enter-active {
+  left: 0;
+  transition: left $default-transition;
+}
+.page-from-right-exit {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.page-from-right-exit-active {
+  left: 100%;
+  transition: left $default-transition;
+}
+
 .wrapper {
   height: 100vh;
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import Logo from "../../assets/img/logo.png";
+import { DEFAULT_TRANSITION } from "../../data/defaults";
 
 import PageWrapper from "../PageWrapper/PageWrapper.jsx";
 import Icon from "../Icon/Icon.jsx";
@@ -14,7 +15,8 @@ class Home extends Component {
 
     this.state = {
       meetingCode: "",
-      valid: false
+      valid: false,
+      pageReady: false
     };
     this.changeMeetingCode = this.changeMeetingCode.bind(this);
     this.viewReaction = this.viewReaction.bind(this);
@@ -36,16 +38,35 @@ class Home extends Component {
     const { meetingCode, valid } = this.state;
 
     if (valid) {
-      this.props.history.push(`/code/${meetingCode}`);
+      this.leavePage();
+
+      setTimeout(() => this.props.history.push(`/code/${meetingCode}`), DEFAULT_TRANSITION);
     }
   }
 
+  enterPage() {
+    this.setState({
+      pageReady: true
+    });
+  }
+
+  leavePage() {
+    this.setState({
+      pageReady: false
+    });
+  }
+
+  componentDidMount() {
+    this.enterPage();
+  }
+
   render() {
-    const { meetingCode, valid } = this.state;
+    const { history: { length } } = this.props;
+    const { meetingCode, valid, pageReady } = this.state;
     const buttonIsDisabled = ! valid;
 
     return (
-      <PageWrapper>
+      <PageWrapper active={pageReady} from="left">
         <Container>
           <Row className="justify-content-center">
             <Col xs="11" sm="9" md="7" lg="5">

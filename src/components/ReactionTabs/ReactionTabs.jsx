@@ -37,6 +37,11 @@ class ReactionTabs extends Component {
       }
     }).catch(() => {
       console.warn("Unable to fetch meeting data. Please check your connection and try again.");
+
+      this.setState({
+        wordCloud: null,
+        errorMessage: ""
+      });
     }).then(response => {
       let wordCloud = wordCloudOptionsData;
       const { status, words } = response.data;
