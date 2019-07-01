@@ -18,7 +18,8 @@ class ReactionTabs extends Component {
     super(props);
 
     this.state = {
-      wordCloud: null
+      wordCloud: null,
+      facialAnalysis: null
     };
   }
 
@@ -72,7 +73,7 @@ class ReactionTabs extends Component {
   }
 
   render() {
-    const { wordCloud } = this.state;
+    const { wordCloud, facialAnalysis } = this.state;
     const Loading = () => (
       <div className="content-loading">
         <ReactLoading
@@ -112,7 +113,7 @@ class ReactionTabs extends Component {
                   {(wordCloud) ? <WordCloudChart options={wordCloud} /> : <Loading />}
                 </Tab.Pane>
                 <Tab.Pane eventKey="facial-analysis" role="tabpanel">
-                  <p>Facial Analysis</p>
+                  {(facialAnalysis) ? <p className="p-5 text-center">Facial Analysis</p> : <Loading />}
                 </Tab.Pane>
               </Tab.Content>
             </Col>
