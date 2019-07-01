@@ -64,7 +64,7 @@ class Home extends Component {
                   </Form.Group>
                   <Button type="submit" variant="warning" block className="px-0 has-icon" disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
                     <span>View reaction</span>
-                    <Icon name="forward" className="ml-2 mr-1" />
+                    <Icon name="forward" className="ml-2" />
                   </Button>
                 </Form>
               </div>

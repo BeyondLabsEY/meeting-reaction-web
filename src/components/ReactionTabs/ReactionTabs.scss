@@ -28,15 +28,16 @@
   color: transparentize($white, 0.7);
   font-size: .875em;
   text-transform: uppercase;
-  transition: background-color $default-transition, color $default-transition;
+  transition: box-shadow $default-transition, background-color $default-transition, color $default-transition;
   &:focus {
     outline: none;
+    box-shadow: 0 0 0 $default-box-shadow-width transparentize($ey-yellow, 0.75);
   }
   &:hover {
     color: transparentize($white, 0.4);
   }
   &.active {
-    background-color: transparentize($ey-yellow, 0.8);
+    background-color: transparentize($ey-yellow, 0.9);
     color: lighten($ey-yellow, 20%);
     pointer-events: none;
   }

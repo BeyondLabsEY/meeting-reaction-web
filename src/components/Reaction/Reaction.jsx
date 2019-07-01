@@ -37,8 +37,8 @@ class Reaction extends Component {
             <Col xs="auto">
               <div className="pb-3">
                 <Button variant="link" size="sm" className="p-0" onClick={this.leaveMeeting}>
-                  <Icon name="backward" />
-                  <span className="ml-2 mr-1">Try another code...</span>
+                  <Icon name="backward" className="mr-2 ml-1" />
+                  <span className="mr-1">Try another code...</span>
                 </Button>
               </div>
             </Col>

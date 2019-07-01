@@ -27,6 +27,10 @@ class ReactionTabs extends Component {
   }
 
   fetchWordCloudData() {
+    this.setState({
+      wordCloud: null
+    });
+
     Axios.get(WORD_CLOUD, {
       params: {
         code: this.props.code

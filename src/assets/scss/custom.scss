@@ -41,6 +41,8 @@ $font-weight-base: $font-weight-normal;
 $headings-font-family: $font-family-base;
 $headings-font-weight: $font-weight-base;
 
+$input-btn-focus-width: $default-box-shadow-width;
+
 $input-btn-padding-y: 1rem;
 $input-btn-padding-x: 2rem;
 
@@ -53,6 +55,9 @@ $input-btn-padding-x-lg: 2.5rem;
 $btn-icon-padding-y: .778rem;
 $btn-icon-padding-y-sm: .556rem;
 $btn-icon-padding-y-lg: .973rem;
+
+$input-focus-border-color: $yellow;
+$input-focus-box-shadow: 0 0 0 $input-btn-focus-width rgba($yellow, .25);
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -81,6 +86,10 @@ $btn-icon-padding-y-lg: .973rem;
 
 .btn-link {
   font-weight: $btn-font-weight;
+  &:focus,
+  &.focus {
+    box-shadow: $input-focus-box-shadow;
+  }
   &.btn-sm {
     font-weight: $font-weight-light;
   }
