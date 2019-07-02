@@ -55,6 +55,14 @@
 }
 
 .tab-content {
+  .error-message {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-weight: $light-font;
+    color: $ey-gray-tint2;
+  }
+  .error-message,
   .content-loading {
     position: fixed;
     top: 50%;

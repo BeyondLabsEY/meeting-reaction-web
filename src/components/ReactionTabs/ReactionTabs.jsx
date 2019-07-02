@@ -4,14 +4,16 @@ import ReactLoading from "react-loading";
 import Axios from "axios";
 
 import "./ReactionTabs.scss";
-import { WORD_CLOUD } from "../../data/endpoints";
-import { wordCloudOptionsData } from "../../data/chartOptions";
+import { WORD_CLOUD, FACIAL_ANALYSIS } from "../../data/endpoints";
+import { wordCloudOptionsData, facialAnalysisOptionsData } from "../../data/chartOptions";
 
 import WordCloudChart from "../WordCloudChart/WordCloudChart.jsx";
+import FacialAnalysisChart from "../FacialAnalysisChart/FacialAnalysisChart.jsx";
 import Icon from "../Icon/Icon.jsx";
 
-const REQUEST_INTERVAL_MINUTES = 5;
+const REQUEST_INTERVAL_MINUTES = 3;
 const CHART_HEIGHT_RATIO = 72;
+const ERROR_MESSAGE = "Unable to fetch meeting data. Please check your connection and try again.";
 
 class ReactionTabs extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class ReactionTabs extends Component {
 
     this.state = {
       wordCloud: null,
-      facialAnalysis: null
+      facialAnalysis: null,
+      wordCloudError: false,
+      facialAnalysisError: false
     };
   }
 
@@ -28,32 +32,91 @@ class ReactionTabs extends Component {
   }
 
   fetchWordCloudData() {
-    this.setState({
-      wordCloud: null
-    });
+    if (this.state.wordCloud) {
+      this.setState({
+        wordCloud: null,
+        wordCloudError: false
+      });
+    }
+    
+    if (this.state.wordCloudError) {
+      this.setState({
+        wordCloudError: false
+      });
+    }
 
     Axios.get(WORD_CLOUD, {
       params: {
         code: this.props.code
       }
     }).catch(() => {
-      console.warn("Unable to fetch meeting data. Please check your connection and try again.");
-
       this.setState({
         wordCloud: null,
-        errorMessage: ""
+        wordCloudError: true
       });
     }).then(response => {
       let wordCloud = wordCloudOptionsData;
       const { status, words } = response.data;
       if (status) {
-        wordCloud.chart.height = `${parseInt(CHART_HEIGHT_RATIO / (window.innerWidth / window.innerHeight))}%`;
+        wordCloud.chart.height = `${this.calcChartHeight()}%`;
         wordCloud.series = [{
           data: words
         }];
 
         this.setState({
-          wordCloud
+          wordCloud,
+          wordCloudError: false
+        });
+      } else {
+        this.setState({
+          wordCloud: null,
+          wordCloudError: true
+        });
+      }
+    });
+  }
+
+  fetchFacialAnalysisData() {
+    if (this.state.facialAnalysis) {
+      this.setState({
+        facialAnalysis: null,
+        facialAnalysisError: false
+      });
+    }
+    
+    if (this.state.facialAnalysisError) {
+      this.setState({
+        facialAnalysisError: false
+      });
+    }
+
+    Axios.get(FACIAL_ANALYSIS, {
+      params: {
+        code: this.props.code
+      }
+    }).catch(() => {
+      this.setState({
+        facialAnalysis: null,
+        facialAnalysisError: true
+      });
+    }).then(response => {
+      let facialAnalysis = facialAnalysisOptionsData;
+      const { status, facialTimeAnalysis } = response.data;
+      if (status) {
+        facialAnalysis.chart.height = `${this.calcChartHeight()}%`;
+        facialAnalysis.series = [{
+          name: "Emotion",
+          data: facialTimeAnalysis.map((face) => [face.timestamp, face.value])
+        }];
+
+        this.setState({
+          facialAnalysis,
+          facialAnalysisError: false
+        });
+      } else {
+        this.setState({
+          facialAnalysis: null,
+          facialAnalysisError: true
         });
       }
     });
@@ -61,6 +124,7 @@ class ReactionTabs extends Component {
 
   fetchData() {
     this.fetchWordCloudData();
+    this.fetchFacialAnalysisData();
   }
 
   componentDidMount() {
@@ -73,7 +137,12 @@ class ReactionTabs extends Component {
   }
 
   render() {
-    const { wordCloud, facialAnalysis } = this.state;
+    const { wordCloud, facialAnalysis, wordCloudError, facialAnalysisError } = this.state;
+    const Error = () => (
+      <div className="error-message">
+        <p className="text-center">{ERROR_MESSAGE}</p>
+      </div>
+    );
     const Loading = () => (
       <div className="content-loading">
         <ReactLoading
@@ -84,7 +153,7 @@ class ReactionTabs extends Component {
     );
 
     return (
-      <Tab.Container defaultActiveKey="word-cloud" id="reactionTabs">
+      <Tab.Container defaultActiveKey="facial-analysis" id="reactionTabs">
         <Container>
           <Row>
             <Col>
@@ -110,10 +179,10 @@ class ReactionTabs extends Component {
             <Col>
               <Tab.Content>
                 <Tab.Pane eventKey="word-cloud" role="tabpanel">
-                  {(wordCloud) ? <WordCloudChart options={wordCloud} /> : <Loading />}
+                  {wordCloud ? <WordCloudChart options={wordCloud} /> : wordCloudError ? <Error /> : <Loading />}
                 </Tab.Pane>
                 <Tab.Pane eventKey="facial-analysis" role="tabpanel">
-                  {(facialAnalysis) ? <p className="p-5 text-center">Facial Analysis</p> : <Loading />}
+                  {facialAnalysis ? <FacialAnalysisChart options={facialAnalysis} /> : facialAnalysisError ? <Error /> : <Loading />}
                 </Tab.Pane>
               </Tab.Content>
             </Col>

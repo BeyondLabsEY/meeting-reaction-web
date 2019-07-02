@@ -73,3 +73,21 @@ $icons-font-path: "../../assets/fonts/custom-icons/" !default;
     content: "\e903";
   }
 }
+
+.icon-reaction-positive {
+  &:before {
+    content: "\e904";
+  }
+}
+
+.icon-reaction-neutral {
+  &:before {
+    content: "\e905";
+  }
+}
+
+.icon-reaction-negative {
+  &:before {
+    content: "\e906";
+  }
+}
