@@ -153,7 +153,7 @@ class ReactionTabs extends Component {
     );
 
     return (
-      <Tab.Container defaultActiveKey="facial-analysis" id="reactionTabs">
+      <Tab.Container defaultActiveKey="word-cloud" id="reactionTabs">
         <Container>
           <Row>
             <Col>
