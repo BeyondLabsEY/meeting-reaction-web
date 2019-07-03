@@ -1,5 +1,4 @@
-const API_URL = "https://meeting-reaction.azurewebsites.net";
-const API_VERSION = "api";
+const { API_URL, API_VERSION } = process.env;
 
 const WORD_CLOUD_ENDPOINT = "getWordCloud";
 const FACIAL_ANALYSIS_ENDPOINT = "getFacialAnalysis";
