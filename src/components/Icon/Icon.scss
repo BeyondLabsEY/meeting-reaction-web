@@ -91,3 +91,15 @@ $icons-font-path: "../../assets/fonts/custom-icons/" !default;
     content: "\e906";
   }
 }
+
+.icon-person {
+  &:before {
+    content: "\e907";
+  }
+}
+
+.icon-people {
+  &:before {
+    content: "\e908";
+  }
+}

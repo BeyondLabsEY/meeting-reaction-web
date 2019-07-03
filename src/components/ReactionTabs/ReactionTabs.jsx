@@ -106,7 +106,11 @@ class ReactionTabs extends Component {
         facialAnalysis.chart.height = `${this.calcChartHeight()}%`;
         facialAnalysis.series = [{
           name: "Emotion",
-          data: facialTimeAnalysis.map((face) => [face.timestamp, face.value])
+          data: facialTimeAnalysis.map((face) => ({
+            name: face.persons,
+            x: face.timestamp,
+            y: face.value
+          }))
         }];
 
         this.setState({

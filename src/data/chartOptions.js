@@ -83,8 +83,16 @@ export const wordCloudOptionsData = {
       if (weight > 1) {
         occurrences += "s";
       }
-      return (`<span>${weight} ${occurrences} of </span><strong>${name}</strong>`);
+
+      return (`
+        <div>
+          <span>${weight}</span>
+          <small>${occurrences} of</small>
+          <strong>${name}</strong>
+        </div>
+      `);
     },
+    useHTML: true,
     style: {
       fontSize: "18px",
       fontWeight: 300
@@ -119,7 +127,7 @@ export const facialAnalysisOptionsData = {
 
   plotOptions: {
     areaspline: {
-      lineWidth: 3,
+      lineWidth: 4,
       negativeColor: "#c893c7",
       fillOpacity: .5,
       style: {
@@ -138,11 +146,11 @@ export const facialAnalysisOptionsData = {
       formatter() {
         switch (this.value) {
           case 1:
-            return (`<i class="icon-reaction-positive size-36" aria-label="Positive" />`);
+            return (`<i class="icon-reaction-positive size-36" aria-label="Positive"></i>`);
           case 0:
-            return (`<i class="icon-reaction-neutral size-36" aria-label="Neutral" />`);
+            return (`<i class="icon-reaction-neutral size-36" aria-label="Neutral"></i>`);
           case -1:
-            return (`<i class="icon-reaction-negative size-36" aria-label="Negative" />`);
+            return (`<i class="icon-reaction-negative size-36" aria-label="Negative"></i>`);
           default:
             return null;
         }
@@ -180,7 +188,7 @@ export const facialAnalysisOptionsData = {
     tickWidth: 0,
     labels: {
       formatter() {
-        return (moment.unix(this.value).format("H:mmA"));
+        return (moment.unix(this.value).utc().format("H:mm"));
       },
       style: {
         color: "#c0c0c0",
@@ -200,13 +208,29 @@ export const facialAnalysisOptionsData = {
   tooltip: {
     headerFormat,
     formatter() {
-      const name = this.series.name;
-      const { x, y } = this.point;
+      const { x, y, name } = this.point;
       const value = y.toFixed(1);
-      const timestamp = moment.unix(x).format("H:mmA D/M/YYYY");
+      const timestamp = moment.unix(x).utc().format("H:mm D/M/YYYY");
+      const peoplePerson = (name > 1) ? "people" : "person";
+      const peoplePersonInfo = `${name} ${peoplePerson}`;
       
-      return (`<span>${name}: </span><strong>${value}</strong><br /><small style="font-size: 12px;">${timestamp}</small>`);
+      return (`
+        <div style="text-align: center;">
+          <span>${this.series.name}:</span>
+          <strong>${value}</strong>
+        </div>
+        <div style="text-align: center;">
+        <small>${timestamp}</small>
+        </div>
+        <div style="text-align: center;">
+          <small>
+            <i class="icon-${peoplePerson}" aria-hidden="true"></i>
+            <strong>${peoplePersonInfo}</strong>
+          </small>
+        </div>
+      `);
     },
+    useHTML: true,
     style: {
       fontSize: "18px",
       fontWeight: 300

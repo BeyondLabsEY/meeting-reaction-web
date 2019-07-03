@@ -55,7 +55,7 @@ class Icon extends Component {
     iconClass = iconClass.join(" ");
 
     return (
-      <i className={iconClass} aria-hidden="true" />
+      <i className={iconClass} aria-hidden="true"></i>
     );
   }
 }
