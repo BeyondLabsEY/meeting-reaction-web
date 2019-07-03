@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import Axios from "axios";
 
 import Logo from "../../assets/img/logo.png";
 import { DEFAULT_TRANSITION } from "../../data/defaults";
+import { WORD_CLOUD } from "../../data/endpoints";
 
 import PageWrapper from "../PageWrapper/PageWrapper.jsx";
 import Icon from "../Icon/Icon.jsx";
@@ -16,10 +18,12 @@ class Home extends Component {
     this.state = {
       meetingCode: "",
       valid: false,
+      checking: false,
+      notFound: false,
       pageReady: false
     };
     this.changeMeetingCode = this.changeMeetingCode.bind(this);
-    this.viewReaction = this.viewReaction.bind(this);
+    this.checkMeetingCode = this.checkMeetingCode.bind(this);
   }
 
   changeMeetingCode(event) {
@@ -28,15 +32,49 @@ class Home extends Component {
 
     this.setState({
       meetingCode,
-      valid
+      valid,
+      notFound: false
     });
   }
 
-  viewReaction(event) {
+  checkMeetingCode(event) {
     event.preventDefault();
 
-    const { meetingCode, valid } = this.state;
+    this.setState({
+      checking: true
+    });
 
+    Axios.get(WORD_CLOUD, {
+      params: {
+        code: this.state.meetingCode
+      }
+    }).catch(() => {
+      this.handleFetchingError();
+    }).then(response => {
+      let status;
+      try {
+        status = response.data.status;
+      } catch {
+        status = false;
+      }
+      if (status)
+        this.viewReaction();
+      else
+        this.handleFetchingError();
+    });
+  }
+
+  handleFetchingError() {
+    this.setState({
+      checking: false,
+      notFound: true
+    });
+
+    $("#inputMeetingCode").focus();
+  }
+
+  viewReaction() {
+    const { meetingCode, valid } = this.state;
     if (valid) {
       this.leavePage();
 
@@ -61,9 +99,9 @@ class Home extends Component {
   }
 
   render() {
-    const { history: { length } } = this.props;
-    const { meetingCode, valid, pageReady } = this.state;
-    const buttonIsDisabled = ! valid;
+    const { meetingCode, valid, checking, notFound, pageReady } = this.state;
+    const buttonClassNames = checking ? "px-0 blinking" : "px-0 has-icon";
+    const buttonIsDisabled = (! valid) || checking;
 
     return (
       <PageWrapper active={pageReady} from="left">
@@ -78,14 +116,19 @@ class Home extends Component {
           <Row className="justify-content-center">
             <Col xs="10" sm="8" md="6" lg="4">
               <div className="my-4">
-                <Form id="meetingForm" noValidate onSubmit={this.viewReaction}>
+                <Form id="meetingForm" noValidate onSubmit={this.checkMeetingCode}>
                   <Form.Group>
                     <Form.Control as="input" type="text" size="lg" className="text-center" value={meetingCode} onChange={this.changeMeetingCode} placeholder="Meeting code" autoFocus autoComplete="off" maxLength="6" required aria-required="true" aria-label="Code" id="inputMeetingCode" />
-                    <Form.Text className="text-light text-right">e.g. 6IVACO</Form.Text>
+                    {notFound ? <Form.Text className="text-warning text-center">Meeting code not found!</Form.Text> : <Form.Text className="text-light text-right">e.g. 6IVACO</Form.Text>}
                   </Form.Group>
-                  <Button type="submit" variant="warning" block className="px-0 has-icon" disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
-                    <span>View reaction</span>
-                    <Icon name="forward" className="ml-2" />
+                  <Button type="submit" variant="warning" block className={buttonClassNames} disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
+                    {checking ?
+                      <span>Checking meeting code...</span> :
+                      <Fragment>
+                        <span>View reaction</span>
+                        <Icon name="forward" className="ml-2" />
+                      </Fragment>
+                    }
                   </Button>
                 </Form>
               </div>
