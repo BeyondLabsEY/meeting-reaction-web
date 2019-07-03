@@ -1,4 +1,5 @@
-const { API_URL, API_VERSION } = process.env;
+const API_URL = process.env.API_URL;
+const API_VERSION = process.env.API_VERSION;
 
 const WORD_CLOUD_ENDPOINT = "getWordCloud";
 const FACIAL_ANALYSIS_ENDPOINT = "getFacialAnalysis";
