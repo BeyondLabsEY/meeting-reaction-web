@@ -4,7 +4,7 @@ import Axios from "axios";
 
 import Logo from "../../assets/img/logo.png";
 import { DEFAULT_TRANSITION } from "../../data/defaults";
-import { WORD_CLOUD } from "../../data/endpoints";
+import { MEETING_CODE } from "../../data/endpoints";
 
 import PageWrapper from "../PageWrapper/PageWrapper.jsx";
 import Icon from "../Icon/Icon.jsx";
@@ -44,7 +44,7 @@ class Home extends Component {
       checking: true
     });
 
-    Axios.get(WORD_CLOUD, {
+    Axios.get(MEETING_CODE, {
       params: {
         code: this.state.meetingCode
       }
