@@ -9,7 +9,7 @@ This feedback can be based on people’s speech or live reactions captured throu
 
 - [x] Front-end React (this)
 - [x] Back-end Azure Functions 2 ([repo](https://github.com/BeyondLabsEY/meeting-reaction-functions))
-- [x] Desktop Python 3 app ([repo](https://github.com/BeyondLabsEY/meeting-reaction-rasp))
+- [x] Desktop Raspberry Pi Python 3 app ([repo](https://github.com/BeyondLabsEY/meeting-reaction-rasp))
 
 ## Infrastructure Requirements
 
