@@ -14,8 +14,9 @@ In the home screen, enter a meeting code (this code is alphanumeric and it has a
 
 Once the meeting code has been entered, you'll be able to visualize instant feedback data. You can either choose to view a word cloud or facial analysis.
 
-<img src="https://media.giphy.com/media/MZKh6n4CKGa50YZCSW/giphy.gif" alt="Meeting Reaction animated gif" />
-
+<div align="center">
+  <img src="https://media.giphy.com/media/MZKh6n4CKGa50YZCSW/giphy.gif" alt="Meeting Reaction animated gif"/>
+</div>
 ## Solution components
 
 - [x] Front-end app built with [webpack](https://webpack.js.org/) and [React](https://reactjs.org/) (this)
