@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Axios from "axios";
 
-import Logo from "../../assets/img/logo.png";
+import Logo from "../../assets/img/logo-meetingreaction-alternate.png";
 import { DEFAULT_TRANSITION } from "../../data/defaults";
 import { MEETING_CODE } from "../../data/endpoints";
 
@@ -10,6 +10,8 @@ import PageWrapper from "../PageWrapper/PageWrapper.jsx";
 import Icon from "../Icon/Icon.jsx";
 
 const MEETING_CODE_LENGTH = 6;
+const MEETING_CODE_ERROR_MSG = "Meeting code not found!";
+const BAD_CONNECTION_ERROR_MSG = "Please check your connection and try again.";
 
 class Home extends Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class Home extends Component {
       valid: false,
       checking: false,
       notFound: false,
+      errorMsg: null,
       pageReady: false
     };
     this.changeMeetingCode = this.changeMeetingCode.bind(this);
@@ -33,7 +36,8 @@ class Home extends Component {
     this.setState({
       meetingCode,
       valid,
-      notFound: false
+      notFound: false,
+      errorMsg: null
     });
   }
 
@@ -49,7 +53,7 @@ class Home extends Component {
         code: this.state.meetingCode
       }
     }).catch(() => {
-      this.handleFetchingError();
+      this.handleFetchingError(BAD_CONNECTION_ERROR_MSG);
     }).then(response => {
       let status;
       try {
@@ -60,14 +64,15 @@ class Home extends Component {
       if (status)
         this.viewReaction();
       else
-        this.handleFetchingError();
+        this.handleFetchingError(MEETING_CODE_ERROR_MSG);
     });
   }
 
-  handleFetchingError() {
+  handleFetchingError(error) {
     this.setState({
       checking: false,
-      notFound: true
+      notFound: true,
+      errorMsg: error
     });
 
     $("#inputMeetingCode").focus();
@@ -99,7 +104,7 @@ class Home extends Component {
   }
 
   render() {
-    const { meetingCode, valid, checking, notFound, pageReady } = this.state;
+    const { meetingCode, valid, checking, notFound, errorMsg, pageReady } = this.state;
     const buttonClassNames = checking ? "px-0 blinking" : "px-0 has-icon";
     const buttonIsDisabled = (! valid) || checking;
 
@@ -119,7 +124,7 @@ class Home extends Component {
                 <Form id="meetingForm" noValidate onSubmit={this.checkMeetingCode}>
                   <Form.Group>
                     <Form.Control as="input" type="text" size="lg" className="text-center" value={meetingCode} onChange={this.changeMeetingCode} placeholder="Meeting code" autoFocus autoComplete="off" maxLength="6" required aria-required="true" aria-label="Code" id="inputMeetingCode" />
-                    {notFound ? <Form.Text className="text-warning text-center">Meeting code not found!</Form.Text> : <Form.Text className="text-light text-right">e.g. 6IVACO</Form.Text>}
+                    {notFound ? <Form.Text className="text-warning text-center">{errorMsg}</Form.Text> : <Form.Text className="text-light text-right">e.g. 6IVACO</Form.Text>}
                   </Form.Group>
                   <Button type="submit" variant="warning" block className={buttonClassNames} disabled={buttonIsDisabled} id="btnViewMeetingReaction" title="Click to view live reaction for this meeting">
                     {checking ?
