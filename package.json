@@ -1,6 +1,6 @@
 {
   "name": "meeting-reaction-web",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Meeting Reaction is an application for viewing instant feedback captured during a meeting.",
   "keywords": [
     "meeting",
