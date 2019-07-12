@@ -1,4 +1,4 @@
-# <img src="./src/assets/img/logo-meetingreaction.png" alt="Meeting Reaction" width="370" height="57" />
+# <img src="./src/assets/img/logo-meetingreaction.png" alt="Meeting Reaction" width="314" height="49" />
 
 An application for viewing instant feedback during a meeting.
 
