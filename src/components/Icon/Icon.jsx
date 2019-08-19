@@ -23,6 +23,7 @@ class Icon extends Component {
       case "48":
         className = "size-48";
         break;
+      case 56:
       case "56":
         className = "size-56";
         break;

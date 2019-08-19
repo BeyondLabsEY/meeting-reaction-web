@@ -50,15 +50,9 @@ $icons-font-path: "../../assets/fonts/custom-icons/" !default;
   }
 }
 
-.icon-reaction {
+.icon-backward {
   &:before {
-    content: "\e900";
-  }
-}
-
-.icon-word-cloud {
-  &:before {
-    content: "\e901";
+    content: "\e903";
   }
 }
 
@@ -68,12 +62,13 @@ $icons-font-path: "../../assets/fonts/custom-icons/" !default;
   }
 }
 
-.icon-backward {
+.icon-word-cloud {
   &:before {
-    content: "\e903";
+    content: "\e901";
   }
 }
 
+.icon-reaction,
 .icon-reaction-positive {
   &:before {
     content: "\e904";
@@ -89,6 +84,12 @@ $icons-font-path: "../../assets/fonts/custom-icons/" !default;
 .icon-reaction-negative {
   &:before {
     content: "\e906";
+  }
+}
+
+.icon-reaction-percentage {
+  &:before {
+    content: "\e900";
   }
 }
 

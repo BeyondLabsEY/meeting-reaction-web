@@ -5,10 +5,11 @@ import Axios from "axios";
 
 import "./ReactionTabs.scss";
 import { WORD_CLOUD, FACIAL_ANALYSIS } from "../../data/endpoints";
-import { wordCloudOptionsData, facialAnalysisOptionsData } from "../../data/chartOptions";
+import { wordCloudOptionsData, facialAnalysisOptionsData, instantReactionOptionsData } from "../../data/chartOptions";
 
 import WordCloudChart from "../WordCloudChart/WordCloudChart.jsx";
 import FacialAnalysisChart from "../FacialAnalysisChart/FacialAnalysisChart.jsx";
+import InstantReactionChart from "../InstantReactionChart/InstantReactionChart.jsx";
 import Icon from "../Icon/Icon.jsx";
 
 const REQUEST_INTERVAL_MINUTES = 3;
@@ -22,8 +23,10 @@ class ReactionTabs extends Component {
     this.state = {
       wordCloud: null,
       facialAnalysis: null,
+      instantReaction: null,
       wordCloudError: false,
-      facialAnalysisError: false
+      facialAnalysisError: false,
+      instantReactionError: false
     };
   }
 
@@ -126,9 +129,46 @@ class ReactionTabs extends Component {
     });
   }
 
+  fetchInstantReactionData() {
+    if (this.state.instantReaction) {
+      this.setState({
+        instantReaction: null,
+        instantReactionError: false
+      });
+    }
+    
+    if (this.state.instantReactionError) {
+      this.setState({
+        instantReactionError: false
+      });
+    }
+    
+    let instantReaction = instantReactionOptionsData;
+    instantReaction.chart.height = `${this.calcChartHeight()}%`;
+    instantReaction.series = [{
+      name: "Reaction",
+      data: [{
+        name: 6,
+        y: 60
+      }, {
+        name: 3,
+        y: 30
+      }, {
+        name: 1,
+        y: 10
+      }]
+    }];
+
+    this.setState({
+      instantReaction,
+      instantReactionError: false
+    });
+  }
+
   fetchData() {
     this.fetchWordCloudData();
     this.fetchFacialAnalysisData();
+    this.fetchInstantReactionData();
   }
 
   componentDidMount() {
@@ -141,7 +181,7 @@ class ReactionTabs extends Component {
   }
 
   render() {
-    const { wordCloud, facialAnalysis, wordCloudError, facialAnalysisError } = this.state;
+    const { wordCloud, facialAnalysis, wordCloudError, facialAnalysisError, instantReaction, instantReactionError } = this.state;
     const Error = () => (
       <div className="error-message">
         <p className="text-center">{ERROR_MESSAGE}</p>
@@ -157,7 +197,7 @@ class ReactionTabs extends Component {
     );
 
     return (
-      <Tab.Container defaultActiveKey="word-cloud" id="reactionTabs">
+      <Tab.Container defaultActiveKey="instant-reaction" id="reactionTabs">
         <Container>
           <Row>
             <Col>
@@ -165,13 +205,19 @@ class ReactionTabs extends Component {
                 <Nav.Item bsPrefix="tab">
                   <Nav.Link as="button" eventKey="word-cloud" role="tab" bsPrefix="tab-button" id="btnWordCloudTab">
                     <Icon name="word-cloud" size="24" />
-                    <span className="tab-title">Word cloud</span>
+                    <span className="tab-title">Top Words</span>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item bsPrefix="tab">
                   <Nav.Link as="button" eventKey="facial-analysis" role="tab" bsPrefix="tab-button" id="btnFacialAnalysisTab">
-                    <Icon name="reaction" size="24" />
+                    <Icon name="reaction-positive" size="24" />
                     <span className="tab-title">Facial Analysis</span>
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item bsPrefix="tab">
+                  <Nav.Link as="button" eventKey="instant-reaction" role="tab" bsPrefix="tab-button" id="btnInstantReactionTab">
+                    <Icon name="reaction-percentage" size="24" />
+                    <span className="tab-title">Instant Reaction</span>
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -187,6 +233,9 @@ class ReactionTabs extends Component {
                 </Tab.Pane>
                 <Tab.Pane eventKey="facial-analysis" role="tabpanel">
                   {facialAnalysis ? <FacialAnalysisChart options={facialAnalysis} /> : facialAnalysisError ? <Error /> : <Loading />}
+                </Tab.Pane>
+                <Tab.Pane eventKey="instant-reaction" role="tabpanel">
+                  {instantReaction ? <InstantReactionChart options={instantReaction} /> : instantReactionError ? <Error /> : <Loading />}
                 </Tab.Pane>
               </Tab.Content>
             </Col>

@@ -5,6 +5,7 @@ const DELTA = .25;
 const height = "40%";
 const fontFamily = `"EYInterstate", Arial, sans-serif`;
 const backgroundColor = "transparent";
+const spacingTop = 30;
 const spacingBottom = 0;
 
 const title = {
@@ -112,7 +113,7 @@ export const facialAnalysisOptionsData = {
       fontFamily
     },
     backgroundColor,
-    spacingTop: 30,
+    spacingTop,
     spacingRight: 15,
     spacingBottom,
     spacingLeft: 15
@@ -220,7 +221,134 @@ export const facialAnalysisOptionsData = {
           <strong>${value}</strong>
         </div>
         <div style="text-align: center;">
-        <small>${timestamp}</small>
+          <small>${timestamp}</small>
+        </div>
+        <div style="text-align: center;">
+          <small>
+            <i class="icon-${peoplePerson}" aria-hidden="true"></i>
+            <strong>${peoplePersonInfo}</strong>
+          </small>
+        </div>
+      `);
+    },
+    useHTML: true,
+    style: {
+      fontSize: "18px",
+      fontWeight: 300
+    },
+    hideDelay,
+    followTouchMove
+  },
+
+  credits
+};
+
+export const instantReactionOptionsData = {
+  chart: {
+    type: "column",
+    height,
+    style: {
+      fontFamily
+    },
+    backgroundColor,
+    spacingTop,
+    spacingBottom
+  },
+
+  title,
+  exporting,
+
+  colors: [
+    "#fff27f",
+    "#c0c0c0",
+    "#c893c7"
+  ],
+
+  plotOptions: {
+    column: {
+      colorByPoint: true,
+      pointPadding: 0,
+      borderColor: "transparent",
+      style: {
+        fontFamily
+      },
+      cursor
+    }
+  },
+
+  yAxis: {
+    title,
+    max: 100,
+    tickInterval: 10,
+    labels: {
+      formatter() {
+        return (`${this.value}%`);
+      },
+      style: {
+        color: "#c0c0c0",
+        fontSize: "12px",
+        fontWeight: 300
+      }
+    },
+    gridLineColor,
+    gridLineDashStyle
+  },
+
+  xAxis: {
+    lineWidth: 0,
+    tickWidth: 0,
+    labels: {
+      formatter() {
+        switch (this.value) {
+          case 0:
+            return (`<i class="icon-reaction-positive size-48" aria-label="Positive"></i>`);
+          case 1:
+            return (`<i class="icon-reaction-neutral size-48" aria-label="Neutral"></i>`);
+          case 2:
+            return (`<i class="icon-reaction-negative size-48" aria-label="Negative"></i>`);
+          default:
+            return null;
+        }
+      },
+      useHTML: true,
+      style: {
+        color: "#c0c0c0"
+      },
+      x: -6,
+      y: 30
+    }
+  },
+
+  series,
+  legend,
+
+  tooltip: {
+    headerFormat,
+    formatter() {
+      const { x, y, name } = this.point;
+      const percentage = `${y.toFixed(0)}%`;
+      const peoplePerson = (name > 1) ? "people" : "person";
+      const peoplePersonInfo = `${name} ${peoplePerson}`;
+      
+      let reaction;
+      switch(x) {
+        case 0:
+          reaction = "Positive";
+          break;
+        case 1:
+          reaction = "Neutral";
+          break;
+        case 2:
+          reaction = "Negative";
+          break;
+        default:
+          reaction = null;
+      }
+      
+      return (`
+        <div style="text-align: center;">
+          <span>${reaction}:</span>
+          <strong>${percentage}</strong>
         </div>
         <div style="text-align: center;">
           <small>
