@@ -26,7 +26,7 @@
   padding: .75rem;
   line-height: 1.5;
   color: transparentize($white, 0.7);
-  font-size: .875em;
+  font-size: 1em;
   text-transform: uppercase;
   transition: box-shadow $default-transition, background-color $default-transition, color $default-transition;
   &:focus {

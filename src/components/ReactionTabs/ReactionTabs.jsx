@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 import Axios from "axios";
 
 import "./ReactionTabs.scss";
-import { WORD_CLOUD, FACIAL_ANALYSIS } from "../../data/endpoints";
+import { WORD_CLOUD, FACIAL_ANALYSIS, EMOTION } from "../../data/endpoints";
 import { wordCloudOptionsData, facialAnalysisOptionsData, instantReactionOptionsData } from "../../data/chartOptions";
 
 import WordCloudChart from "../WordCloudChart/WordCloudChart.jsx";
@@ -142,26 +142,40 @@ class ReactionTabs extends Component {
         instantReactionError: false
       });
     }
-    
-    let instantReaction = instantReactionOptionsData;
-    instantReaction.chart.height = `${this.calcChartHeight()}%`;
-    instantReaction.series = [{
-      name: "Reaction",
-      data: [{
-        name: 6,
-        y: 60
-      }, {
-        name: 3,
-        y: 30
-      }, {
-        name: 1,
-        y: 10
-      }]
-    }];
 
-    this.setState({
-      instantReaction,
-      instantReactionError: false
+    Axios.get(EMOTION, {
+      params: {
+        code: this.props.code
+      }
+    }).catch(() => {
+      this.setState({
+        instantReaction: null,
+        instantReactionError: true
+      });
+    }).then(response => {
+      let instantReaction = instantReactionOptionsData;
+      const { status, emotion } = response.data;
+      if (status) {
+        instantReaction.chart.height = `${this.calcChartHeight()}%`;
+        instantReaction.series = [{
+          name: "Reaction",
+          data: emotion.map((scan) => ({
+            name: scan.faces,
+            y: parseInt(scan.percentage),
+            x: scan.index
+          }))
+        }];
+
+        this.setState({
+          instantReaction,
+          instantReactionError: false
+        });
+      } else {
+        this.setState({
+          instantReaction: null,
+          instantReactionError: true
+        });
+      }
     });
   }
 
@@ -197,7 +211,7 @@ class ReactionTabs extends Component {
     );
 
     return (
-      <Tab.Container defaultActiveKey="instant-reaction" id="reactionTabs">
+      <Tab.Container defaultActiveKey="word-cloud" id="reactionTabs">
         <Container>
           <Row>
             <Col>

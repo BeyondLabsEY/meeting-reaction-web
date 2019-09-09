@@ -6,7 +6,9 @@ const height = "40%";
 const fontFamily = `"EYInterstate", Arial, sans-serif`;
 const backgroundColor = "transparent";
 const spacingTop = 30;
+const spacingRight = 15;
 const spacingBottom = 0;
+const spacingLeft = 15;
 
 const title = {
   text: null
@@ -53,10 +55,10 @@ export const wordCloudOptionsData = {
   colors: [
     "#c0c0c0",
     "#fff27f",
-    "#7fd1d6",
+    "#d8d2e0",
     "#c893c7",
-    "#95cb89",
-    "#d8d2e0"
+    "#7fd1d6",
+    "#95cb89"
   ],
 
   plotOptions: {
@@ -114,9 +116,9 @@ export const facialAnalysisOptionsData = {
     },
     backgroundColor,
     spacingTop,
-    spacingRight: 15,
+    spacingRight,
     spacingBottom,
-    spacingLeft: 15
+    spacingLeft
   },
   
   title,
@@ -129,7 +131,7 @@ export const facialAnalysisOptionsData = {
   plotOptions: {
     areaspline: {
       lineWidth: 4,
-      negativeColor: "#c893c7",
+      negativeColor: "#d8d2e0",
       fillOpacity: .5,
       style: {
         fontFamily
@@ -252,7 +254,9 @@ export const instantReactionOptionsData = {
     },
     backgroundColor,
     spacingTop,
-    spacingBottom
+    spacingRight,
+    spacingBottom,
+    spacingLeft
   },
 
   title,
@@ -260,8 +264,7 @@ export const instantReactionOptionsData = {
 
   colors: [
     "#fff27f",
-    "#c0c0c0",
-    "#c893c7"
+    "#d8d2e0"
   ],
 
   plotOptions: {
@@ -273,6 +276,23 @@ export const instantReactionOptionsData = {
         fontFamily
       },
       cursor
+    },
+    series: {
+      dataLabels: {
+        enabled: true,
+        align: "center",
+        formatter() {
+          const { y, color } = this;
+          const percentage = `${y}%`;
+
+          return (`<span style="color: ${color};">${percentage}</span>`);
+        },
+        style: {
+          fontSize: "42px",
+          fontWeight: 400,
+          textOutline: "1px #2e2e38"
+        }
+      }
     }
   },
 
@@ -303,8 +323,6 @@ export const instantReactionOptionsData = {
           case 0:
             return (`<i class="icon-reaction-positive size-48" aria-label="Positive"></i>`);
           case 1:
-            return (`<i class="icon-reaction-neutral size-48" aria-label="Neutral"></i>`);
-          case 2:
             return (`<i class="icon-reaction-negative size-48" aria-label="Negative"></i>`);
           default:
             return null;
@@ -314,7 +332,7 @@ export const instantReactionOptionsData = {
       style: {
         color: "#c0c0c0"
       },
-      x: -6,
+      x: 0,
       y: 30
     }
   },
@@ -336,9 +354,6 @@ export const instantReactionOptionsData = {
           reaction = "Positive";
           break;
         case 1:
-          reaction = "Neutral";
-          break;
-        case 2:
           reaction = "Negative";
           break;
         default:
