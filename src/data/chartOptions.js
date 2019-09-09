@@ -53,12 +53,18 @@ export const wordCloudOptionsData = {
   exporting,
   
   colors: [
-    "#c0c0c0",
     "#fff27f",
-    "#d8d2e0",
-    "#c893c7",
+    "#336699",
+    "#f04c3e",
+    "#00a3ae",
+    "#91278f",
+    "#2c973e",
+    "#ac98db",
     "#7fd1d6",
-    "#95cb89"
+    "#c893c7",
+    "#95cb89",
+    "#d8d2e0",
+    "#fff27f"
   ],
 
   plotOptions: {
@@ -69,7 +75,7 @@ export const wordCloudOptionsData = {
       },
       name: "Occurrences",
       style: {
-        fontFamily,
+        fontFamily
       },
       cursor
     }
