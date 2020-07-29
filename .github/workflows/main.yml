@@ -21,14 +21,19 @@ jobs:
         with:
           submodules: true
           
+      - name: set environment variables
+        uses: allenevans/set-env@v1.0.0
+        with:
+          overwrite: false
+          API_URL: ${{ secrets.API_URL }}
+          API_VERSION: ${{ secrets.API_VERSION }}
+                
       - name: Install dependencies
-        run: npm install
+        run: npm install | printenv
       
       - name: Building the static site
         run: npm run build
-        env:
-          API_URL: ${{ secrets.API_URL }}
-          API_VERSION: ${{ secrets.API_VERSION }}
+
         
       - name: Build And Deploy
         id: builddeploy
