@@ -14,10 +14,9 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    env:
-      API_URL: ${{ secrets.API_URL }}
-      API_VERSION: ${{ secrets.API_VERSION }}
+    
     steps:
+        
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -27,6 +26,9 @@ jobs:
       
       - name: Building the static site
         run: npm run build
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_VERSION: ${{ secrets.API_VERSION }}
         
       - name: Build And Deploy
         id: builddeploy
