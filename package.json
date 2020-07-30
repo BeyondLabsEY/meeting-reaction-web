@@ -22,8 +22,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production --progress",
-    "deploy": "gh-pages -b dist -d dist"
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
