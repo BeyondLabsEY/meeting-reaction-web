@@ -34,6 +34,9 @@ jobs:
         env:
           API_VERSION: ${{ secrets.API_VERSION }}
           
+      - name: show file
+        run: cat src/data/endpoints.js
+        
       - name: Buidling
         run: npm run build
         
