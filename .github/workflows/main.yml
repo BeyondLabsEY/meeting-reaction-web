@@ -27,7 +27,7 @@ jobs:
       - name: Replacing API URL
         run: sed -i 's|process.env.API_URL|"'$API_URL'"|g' src/data/endpoints.js
         env:
-          API_URL: ${{ secrets.API_URL }}
+          API_URL: teste
         
       - name: Replacing API Version
         run: sed -i 's|process.env.API_VERSION|"'$API_VERSION'"|g'  src/data/endpoints.js
