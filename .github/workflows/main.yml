@@ -20,17 +20,20 @@ jobs:
         with:
           submodules: true
 
-      - name: set environment variables
-        uses: allenevans/set-env@v1.0.0
-        with:
-          overwrite: false
+      - name: Install dependencies
+        run: npm install
+
+      - name: Replacing API URL
+        run: sed -i 's|process.env.API_URL|"'$API_URL'"|g' src/data/endpoints.js
+        env:
           API_URL: ${{ secrets.API_URL }}
+
+      - name: Replacing API Version
+        run: sed -i 's|process.env.API_VERSION|"'$API_VERSION'"|g'  src/data/endpoints.js
+        env:
           API_VERSION: ${{ secrets.API_VERSION }}
 
-      - name: Install dependencies
-        run: npm install | printenv
-
-      - name: Building the static site
+      - name: Build local
         run: npm run build
 
       - name: Build And Deploy
