@@ -25,7 +25,7 @@ jobs:
         run: npm install
       
       - name: Building the static site
-        run: npn run build
+        run: npm run build
         env:
           API_URL: ${{ secrets.API_URL }}
           API_VERSION: ${{ secrets.API_VERSION }}
