@@ -28,7 +28,7 @@ jobs:
         env:
           API_URL: ${{ secrets.API_URL }}
           API_VERSION: ${{ secrets.API_VERSION }}
-        run: printenv | npm run build
+        run: printenv
 
         
       - name: Build And Deploy
