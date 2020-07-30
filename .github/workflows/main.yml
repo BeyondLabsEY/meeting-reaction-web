@@ -25,10 +25,10 @@ jobs:
         run: npm install
       
       - name: Building the static site
+        run: printenv
         env:
           API_URL: ${{ secrets.API_URL }}
           API_VERSION: ${{ secrets.API_VERSION }}
-        run: printenv
 
         
       - name: Build And Deploy
