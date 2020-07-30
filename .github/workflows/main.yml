@@ -24,12 +24,18 @@ jobs:
       - name: Install dependencies
         run: npm install
       
-      - name: Building the static site
-        run: npm run build
+      - name: Replacing API URL
+        run: sed -i 's|process.env.API_URL|"'$API_URL'"|g' src/data/endpoints.js
         env:
           API_URL: ${{ secrets.API_URL }}
+        
+      - name: Replacing API Version
+        run: sed -i 's|process.env.API_VERSION|"'$API_VERSION'"|g'  src/data/endpoints.js
+        env:
           API_VERSION: ${{ secrets.API_VERSION }}
-
+          
+      - name: Buidling
+        run: npm run build
         
       - name: Build And Deploy
         id: builddeploy
