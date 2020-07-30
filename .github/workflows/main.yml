@@ -20,9 +20,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Replacing API URL
         run: sed -i 's|process.env.API_URL|"'$API_URL'"|g' src/data/endpoints.js
         env:
@@ -32,9 +29,6 @@ jobs:
         run: sed -i 's|process.env.API_VERSION|"'$API_VERSION'"|g'  src/data/endpoints.js
         env:
           API_VERSION: ${{ secrets.API_VERSION }}
-
-      - name: Build local
-        run: npm run build
 
       - name: Build And Deploy
         id: builddeploy
