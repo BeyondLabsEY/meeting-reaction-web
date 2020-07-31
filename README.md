@@ -1,3 +1,5 @@
+
+![Azure Static Web Apps CI/CD](https://github.com/BeyondLabsEY/meeting-reaction-web/workflows/Azure%20Static%20Web%20Apps%20CI/CD/badge.svg)
 <div align="center">
   <img src="./src/assets/img/logo-meetingreaction.png" alt="Meeting Reaction logo" width="370" height="57" />
 
